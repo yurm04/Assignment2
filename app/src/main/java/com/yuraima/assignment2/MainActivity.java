@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     final static String TAG = "Assignment2";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,18 +59,18 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /* State change methods */
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG, "onStop");
-    }
+    /* Override methods for state change */
 
     @Override
     protected void onStart() {
         super.onStart();
         Log.i(TAG, "onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop");
     }
 
     @Override
@@ -99,5 +101,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.i(TAG, "onSaveInstanceState");
+
+        // Get text field entry
+        final EditText textBox = (EditText) findViewById(R.id.editText);
+        CharSequence userText = textBox.getText();
+
+        outState.putCharSequence("savedText", userText);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i(TAG, "onRestoreInstanceState");
+
+        // restore saved edit text field entry
+        final EditText textBox = (EditText) findViewById(R.id.editText);
+        CharSequence userText = savedInstanceState.getCharSequence("savedText");
+        /*
+            NOTE TO SELF
+            onRestoreInstanceState gets called on orientation change
+            NOT when application switches from in view to foreground, etc.
+         */
+        textBox.setText(userText);
     }
 }
