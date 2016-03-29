@@ -16,9 +16,27 @@
         android:saveEnabled="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/taskField"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:width="200dp"
         android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/taskMessageText"
+        android:id="@+id/taskMessage"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/completeBtnText"
+        android:id="@+id/completeBtn"
+        android:layout_below="@+id/taskField"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

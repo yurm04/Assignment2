@@ -1,15 +1,16 @@
 package com.yuraima.assignment2;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     final static String TAG = "Assignment2";
@@ -22,6 +23,25 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Log.i(TAG, "onCreate");
+
+        /* Registering an onClick event for the "complete" button */
+        Button button = (Button) findViewById(R.id.completeBtn);
+        button.setOnClickListener( new Button.OnClickListener() {
+            public void onClick(View v) {
+                /* Check to see if text field is empty, set error message */
+                EditText taskField = (EditText) findViewById((R.id.taskField));
+                String taskText = taskField.getText().toString();
+
+                TextView viewMessage = (TextView) findViewById(R.id.taskMessage);
+                if (taskText.isEmpty()) {
+                    viewMessage.setTextColor(Color.RED);
+                    viewMessage.setText("Missing Task Field");
+                } else {
+                    viewMessage.setText("Added Task: " + taskText);
+                    Log.i(TAG, "Task Text: " + taskText);
+                }
+            }
+        });
     }
 
     @Override
@@ -94,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onSaveInstanceState");
 
         // Get text field entry
-        final EditText textBox = (EditText) findViewById(R.id.editText);
+        final EditText textBox = (EditText) findViewById(R.id.taskField);
         CharSequence userText = textBox.getText();
 
         outState.putCharSequence("savedText", userText);
@@ -106,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onRestoreInstanceState");
 
         // restore saved edit text field entry
-        final EditText textBox = (EditText) findViewById(R.id.editText);
+        final EditText textBox = (EditText) findViewById(R.id.taskField);
         CharSequence userText = savedInstanceState.getCharSequence("savedText");
         /*
             NOTE TO SELF
